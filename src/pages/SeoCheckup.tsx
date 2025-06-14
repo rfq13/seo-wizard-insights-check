@@ -328,24 +328,24 @@ export default function SeoCheckup() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col items-center px-4 py-8">
       <ThemeToggle />
-      <div className="max-w-4xl w-full mx-auto">
+      <div className="max-w-6xl w-full mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
-            <span className="text-2xl">🚀</span>
+        <div className="text-center mb-6 md:mb-8 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+            <span className="text-xl md:text-2xl">🚀</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3">
             SEO Site Checkup Pro
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-md mx-auto">
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-md mx-auto px-4">
             Analisis lengkap SEO website Anda dengan lebih dari 15 kriteria penting untuk meningkatkan ranking di search engine.
           </p>
         </div>
 
         {/* Form Card */}
-        <Card className="mb-8 shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+        <Card className="mb-6 md:mb-8 shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
           <CardHeader className="pb-4">
-            <CardTitle className="text-xl text-slate-700 dark:text-slate-200">Website Analysis</CardTitle>
+            <CardTitle className="text-lg md:text-xl text-slate-700 dark:text-slate-200">Website Analysis</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleCheck} className="space-y-4">
@@ -363,7 +363,7 @@ export default function SeoCheckup() {
                   className="mt-2 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <Button 
                   type="submit" 
                   disabled={loading}
@@ -372,12 +372,14 @@ export default function SeoCheckup() {
                   {loading ? (
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      Menganalisis...
+                      <span className="hidden sm:inline">Menganalisis...</span>
+                      <span className="sm:hidden">Analisis...</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
                       <span>🔍</span>
-                      Jalankan Analisis SEO Lengkap
+                      <span className="hidden sm:inline">Jalankan Analisis SEO Lengkap</span>
+                      <span className="sm:hidden">Analisis SEO</span>
                     </div>
                   )}
                 </Button>
@@ -386,7 +388,7 @@ export default function SeoCheckup() {
                   onClick={handlePreview}
                   disabled={loading}
                   variant="outline"
-                  className="px-6 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200"
+                  className="sm:px-6 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200"
                 >
                   <div className="flex items-center gap-2">
                     <span>✨</span>
@@ -402,8 +404,8 @@ export default function SeoCheckup() {
         {showPreview && (
           <Card className="mb-4 animate-fade-in shadow-lg border-amber-200 dark:border-amber-800 bg-amber-50/80 dark:bg-amber-900/20 backdrop-blur-sm">
             <CardContent className="pt-4">
-              <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
-                <span>💡</span>
+              <div className="flex items-start gap-2 text-amber-800 dark:text-amber-200">
+                <span className="mt-0.5">💡</span>
                 <span className="text-sm font-medium">
                   Ini adalah data preview untuk demonstrasi. Masukkan URL asli untuk analisis yang akurat.
                 </span>
@@ -414,19 +416,19 @@ export default function SeoCheckup() {
 
         {/* SEO Score Card */}
         {seoScore && (
-          <Card className="mb-8 animate-fade-in shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+          <Card className="mb-6 md:mb-8 animate-fade-in shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl text-slate-700 dark:text-slate-200 flex items-center gap-2">
+              <CardTitle className="text-lg md:text-xl text-slate-700 dark:text-slate-200 flex items-center gap-2">
                 <span>📊</span>
                 Skor SEO Overall
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {seoScore.percentage}%
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 w-full sm:w-auto">
                   <Progress value={seoScore.percentage} className="h-3" />
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
                     {seoScore.score} dari {seoScore.total} kriteria terpenuhi
@@ -450,11 +452,11 @@ export default function SeoCheckup() {
 
         {/* Results Section - Grouped by Category */}
         {groupedResults && (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-4 md:space-y-6 animate-fade-in">
             {Object.entries(groupedResults).map(([category, categoryResults]) => (
               <Card key={category} className="shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                  <CardTitle className="text-base md:text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
                     <span>
                       {category === "Basic" && "🔒"}
                       {category === "Performance" && "⚡"}
@@ -476,13 +478,13 @@ export default function SeoCheckup() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-600">
+                  <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-600">
                     <Table>
                       <TableHeader>
                         <TableRow className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600">
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200">Check</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200">Result</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200">Status</TableHead>
+                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[120px]">Check</TableHead>
+                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[150px]">Result</TableHead>
+                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[100px]">Status</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -495,23 +497,25 @@ export default function SeoCheckup() {
                                 : "bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-l-4 border-l-red-500"
                             } hover:opacity-80 transition-opacity`}
                           >
-                            <TableCell className="font-medium text-slate-700 dark:text-slate-200">{row.label}</TableCell>
-                            <TableCell className="text-slate-600 dark:text-slate-300">{row.value}</TableCell>
-                            <TableCell>
-                              <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold ${
+                            <TableCell className="font-medium text-slate-700 dark:text-slate-200 text-sm md:text-base p-3 md:p-4">{row.label}</TableCell>
+                            <TableCell className="text-slate-600 dark:text-slate-300 text-sm md:text-base p-3 md:p-4 break-words">{row.value}</TableCell>
+                            <TableCell className="p-3 md:p-4">
+                              <span className={`inline-flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-semibold ${
                                 row.ok 
                                   ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200" 
                                   : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200"
                               }`}>
                                 {row.ok ? (
                                   <>
-                                    <CheckCircle className="w-4 h-4" />
-                                    Pass
+                                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
+                                    <span className="hidden sm:inline">Pass</span>
+                                    <span className="sm:hidden">✓</span>
                                   </>
                                 ) : (
                                   <>
-                                    <AlertTriangle className="w-4 h-4" />
-                                    Warn
+                                    <AlertTriangle className="w-3 h-3 md:w-4 md:h-4" />
+                                    <span className="hidden sm:inline">Warn</span>
+                                    <span className="sm:hidden">!</span>
                                   </>
                                 )}
                               </span>
@@ -529,19 +533,19 @@ export default function SeoCheckup() {
             {detailResults && detailResults.length > 0 && (
               <Card className="shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                  <CardTitle className="text-base md:text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
                     <span>📋</span>
                     Content Details
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-600">
+                  <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-600">
                     <Table>
                       <TableHeader>
                         <TableRow className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600">
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200">Element</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200">Content</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200">Status</TableHead>
+                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[120px]">Element</TableHead>
+                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[200px]">Content</TableHead>
+                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[100px]">Status</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -554,23 +558,25 @@ export default function SeoCheckup() {
                                 : "bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-l-4 border-l-red-500"
                             } hover:opacity-80 transition-opacity`}
                           >
-                            <TableCell className="font-medium text-slate-700 dark:text-slate-200">{row.label}</TableCell>
-                            <TableCell className="text-slate-600 dark:text-slate-300 max-w-md">{row.value}</TableCell>
-                            <TableCell>
-                              <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold ${
+                            <TableCell className="font-medium text-slate-700 dark:text-slate-200 text-sm md:text-base p-3 md:p-4">{row.label}</TableCell>
+                            <TableCell className="text-slate-600 dark:text-slate-300 text-sm md:text-base p-3 md:p-4 max-w-xs md:max-w-md break-words">{row.value}</TableCell>
+                            <TableCell className="p-3 md:p-4">
+                              <span className={`inline-flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-semibold ${
                                 row.ok 
                                   ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200" 
                                   : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200"
                               }`}>
                                 {row.ok ? (
                                   <>
-                                    <CheckCircle className="w-4 h-4" />
-                                    Pass
+                                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
+                                    <span className="hidden sm:inline">Pass</span>
+                                    <span className="sm:hidden">✓</span>
                                   </>
                                 ) : (
                                   <>
-                                    <AlertTriangle className="w-4 h-4" />
-                                    Warn
+                                    <AlertTriangle className="w-3 h-3 md:w-4 md:h-4" />
+                                    <span className="hidden sm:inline">Warn</span>
+                                    <span className="sm:hidden">!</span>
                                   </>
                                 )}
                               </span>
@@ -589,7 +595,7 @@ export default function SeoCheckup() {
                 <span>💡</span>
                 <strong>Tips untuk meningkatkan SEO:</strong>
               </p>
-              <ul className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+              <ul className="text-xs md:text-sm text-slate-600 dark:text-slate-400 space-y-1">
                 <li>• Pastikan setiap halaman memiliki title tag dan meta description yang unik</li>
                 <li>• Gunakan struktur heading (H1, H2, H3) yang logis dan hierarkis</li>
                 <li>• Tambahkan alt text pada semua gambar untuk aksesibilitas</li>
