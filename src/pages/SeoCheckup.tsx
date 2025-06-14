@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CheckCircle, AlertTriangle } from "lucide-react";
 
 type SeoResult = {
   label: string;
@@ -497,12 +498,22 @@ export default function SeoCheckup() {
                             <TableCell className="font-medium text-slate-700 dark:text-slate-200">{row.label}</TableCell>
                             <TableCell className="text-slate-600 dark:text-slate-300">{row.value}</TableCell>
                             <TableCell>
-                              <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold ${
+                              <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold ${
                                 row.ok 
                                   ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200" 
                                   : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200"
                               }`}>
-                                {row.ok ? "✅ Pass" : "⚠️ Warn"}
+                                {row.ok ? (
+                                  <>
+                                    <CheckCircle className="w-4 h-4" />
+                                    Pass
+                                  </>
+                                ) : (
+                                  <>
+                                    <AlertTriangle className="w-4 h-4" />
+                                    Warn
+                                  </>
+                                )}
                               </span>
                             </TableCell>
                           </TableRow>
@@ -546,12 +557,22 @@ export default function SeoCheckup() {
                             <TableCell className="font-medium text-slate-700 dark:text-slate-200">{row.label}</TableCell>
                             <TableCell className="text-slate-600 dark:text-slate-300 max-w-md">{row.value}</TableCell>
                             <TableCell>
-                              <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold ${
+                              <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold ${
                                 row.ok 
                                   ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200" 
                                   : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200"
                               }`}>
-                                {row.ok ? "✅ Pass" : "⚠️ Warn"}
+                                {row.ok ? (
+                                  <>
+                                    <CheckCircle className="w-4 h-4" />
+                                    Pass
+                                  </>
+                                ) : (
+                                  <>
+                                    <AlertTriangle className="w-4 h-4" />
+                                    Warn
+                                  </>
+                                )}
                               </span>
                             </TableCell>
                           </TableRow>
