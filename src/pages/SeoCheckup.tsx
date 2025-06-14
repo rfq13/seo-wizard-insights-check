@@ -68,18 +68,94 @@ function analyzeLinks(html: string) {
   return { total: allLinks.length, external: externalLinks.length, internal: internalLinks.length };
 }
 
+const getDummyData = (hostname: string): { results: SeoResult[], score: SeoScore, loadTime: number } => {
+  const dummyResults: SeoResult[] = [
+    // Basic SEO
+    { label: "HTTPS Usage", value: "Ya", ok: true, category: "Basic" },
+    { label: "robots.txt Found", value: "Ya", ok: true, category: "Basic" },
+    { label: "Page Load Time", value: "1.2s (Sangat Baik)", ok: true, category: "Performance" },
+
+    // Meta Tags
+    { label: "Title Tag Present", value: "Ya", ok: true, category: "Meta Tags" },
+    { label: "Meta Description Present", value: "Ya", ok: true, category: "Meta Tags" },
+    { label: "Meta Keywords", value: "Ya", ok: true, category: "Meta Tags" },
+    { label: "Viewport Meta Tag", value: "Ya", ok: true, category: "Meta Tags" },
+    { label: "Canonical URL", value: "Ya", ok: true, category: "Meta Tags" },
+
+    // Content Structure
+    { label: "H1 Tags", value: "1 tag (Ideal)", ok: true, category: "Content" },
+    { label: "Heading Structure", value: "H1:1 H2:4 H3:8", ok: true, category: "Content" },
+    
+    // Images
+    { label: "Images Alt Text", value: "12/12 memiliki alt text", ok: true, category: "Images" },
+
+    // Social Media
+    { label: "Open Graph Tags", value: "8 tags", ok: true, category: "Social" },
+    { label: "Twitter Cards", value: "5 tags", ok: true, category: "Social" },
+
+    // Technical SEO
+    { label: "Schema Markup", value: "Ya", ok: true, category: "Technical" },
+    { label: "Internal Links", value: "23 links", ok: true, category: "Links" },
+    { label: "External Links", value: "7 links", ok: true, category: "Links" },
+
+    // Content Details
+    {
+      label: "Page Title",
+      value: (
+        <span className="font-mono text-xs text-slate-600 dark:text-slate-300">
+          {hostname} - Platform SEO Terbaik untuk Analisis Website Professional
+        </span>
+      ),
+      ok: true,
+      category: "Details"
+    },
+    {
+      label: "Meta Description",
+      value: (
+        <span className="font-mono text-xs text-slate-600 dark:text-slate-300">
+          Analisis SEO lengkap untuk website Anda. Periksa meta tags, struktur heading, optimasi gambar, dan 15+ faktor SEO penting lainnya untuk meningkatkan ranking di Google.
+        </span>
+      ),
+      ok: true,
+      category: "Details"
+    },
+  ];
+
+  const score = { score: 16, total: 16, percentage: 100 };
+  const loadTime = 1200;
+
+  return { results: dummyResults, score, loadTime };
+};
+
 export default function SeoCheckup() {
   const [url, setUrl] = useState("");
   const [results, setResults] = useState<SeoResult[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [seoScore, setSeoScore] = useState<SeoScore | null>(null);
   const [loadTime, setLoadTime] = useState<number | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
+
+  const handlePreview = () => {
+    const hostname = url ? extractHostname(url) || "example.com" : "example.com";
+    const dummyData = getDummyData(hostname);
+    
+    setResults(dummyData.results);
+    setSeoScore(dummyData.score);
+    setLoadTime(dummyData.loadTime);
+    setShowPreview(true);
+    
+    toast({ 
+      title: "✨ Preview Data Ditampilkan", 
+      description: "Ini adalah contoh hasil analisis SEO dengan data dummy untuk demonstrasi" 
+    });
+  };
 
   const handleCheck = async (e: React.FormEvent) => {
     e.preventDefault();
     setResults(null);
     setSeoScore(null);
     setLoadTime(null);
+    setShowPreview(false);
 
     if (!url.trim()) {
       toast({ title: "Error", description: "Silakan masukkan URL website", variant: "destructive" });
@@ -286,26 +362,54 @@ export default function SeoCheckup() {
                   className="mt-2 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
-              <Button 
-                type="submit" 
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-2.5 shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                {loading ? (
+              <div className="flex gap-3">
+                <Button 
+                  type="submit" 
+                  disabled={loading}
+                  className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-2.5 shadow-lg hover:shadow-xl transition-all duration-200"
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      Menganalisis...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span>🔍</span>
+                      Jalankan Analisis SEO Lengkap
+                    </div>
+                  )}
+                </Button>
+                <Button 
+                  type="button" 
+                  onClick={handlePreview}
+                  disabled={loading}
+                  variant="outline"
+                  className="px-6 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200"
+                >
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    Menganalisis...
+                    <span>✨</span>
+                    Preview
                   </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <span>🔍</span>
-                    Jalankan Analisis SEO Lengkap
-                  </div>
-                )}
-              </Button>
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
+
+        {/* Preview Notice */}
+        {showPreview && (
+          <Card className="mb-4 animate-fade-in shadow-lg border-amber-200 dark:border-amber-800 bg-amber-50/80 dark:bg-amber-900/20 backdrop-blur-sm">
+            <CardContent className="pt-4">
+              <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
+                <span>💡</span>
+                <span className="text-sm font-medium">
+                  Ini adalah data preview untuk demonstrasi. Masukkan URL asli untuk analisis yang akurat.
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* SEO Score Card */}
         {seoScore && (
