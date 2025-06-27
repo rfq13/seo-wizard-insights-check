@@ -326,15 +326,25 @@ export default function SeoCheckup() {
   const detailResults = results?.filter(result => result.category === "Details");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col items-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/20 flex flex-col items-center px-4 py-8">
       <ThemeToggle />
-      <div className="max-w-6xl w-full mx-auto">
+      
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/10 to-indigo-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-slate-400/10 to-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="max-w-6xl w-full mx-auto relative z-10">
         {/* Header Section */}
         <div className="text-center mb-6 md:mb-8 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
-            <span className="text-xl md:text-2xl">🚀</span>
+          <div className="relative inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 mb-4">
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-600 via-blue-600 to-indigo-700 rounded-2xl animate-pulse"></div>
+            <div className="relative w-full h-full bg-gradient-to-r from-slate-700 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl">
+              <span className="text-xl md:text-2xl">🚀</span>
+            </div>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-800 via-blue-700 to-indigo-800 dark:from-slate-200 dark:via-blue-300 dark:to-indigo-200 bg-clip-text text-transparent mb-3">
             SEO Site Checkup Pro
           </h1>
           <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-md mx-auto px-4">
@@ -342,256 +352,279 @@ export default function SeoCheckup() {
           </p>
         </div>
 
-        {/* Form Card */}
-        <Card className="mb-6 md:mb-8 shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg md:text-xl text-slate-700 dark:text-slate-200">Website Analysis</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleCheck} className="space-y-4">
-              <div>
-                <Label htmlFor="url" className="text-slate-700 dark:text-slate-300 font-medium">Website URL</Label>
-                <Input
-                  id="url"
-                  placeholder="e.g. example.com or https://mysite.org"
-                  value={url}
-                  autoFocus
-                  autoComplete="off"
-                  spellCheck={false}
-                  onChange={e => setUrl(e.target.value)}
-                  disabled={loading}
-                  className="mt-2 border-slate-200 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button 
-                  type="submit" 
-                  disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-2.5 shadow-lg hover:shadow-xl transition-all duration-200"
-                >
-                  {loading ? (
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      <span className="hidden sm:inline">Menganalisis...</span>
-                      <span className="sm:hidden">Analisis...</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <span>🔍</span>
-                      <span className="hidden sm:inline">Jalankan Analisis SEO Lengkap</span>
-                      <span className="sm:hidden">Analisis SEO</span>
-                    </div>
-                  )}
-                </Button>
-                <Button 
-                  type="button" 
-                  onClick={handlePreview}
-                  disabled={loading}
-                  variant="outline"
-                  className="sm:px-6 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200"
-                >
-                  <div className="flex items-center gap-2">
-                    <span>✨</span>
-                    Preview
+        {/* Form Card with Animated Border */}
+        <div className="relative mb-6 md:mb-8 group">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-blue-500 to-indigo-600 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000 animate-pulse"></div>
+          <Card className="relative shadow-2xl border-0 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg md:text-xl text-slate-700 dark:text-slate-200">Website Analysis</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleCheck} className="space-y-4">
+                <div>
+                  <Label htmlFor="url" className="text-slate-700 dark:text-slate-300 font-medium">Website URL</Label>
+                  <div className="relative mt-2">
+                    <Input
+                      id="url"
+                      placeholder="e.g. example.com or https://mysite.org"
+                      value={url}
+                      autoFocus
+                      autoComplete="off"
+                      spellCheck={false}
+                      onChange={e => setUrl(e.target.value)}
+                      disabled={loading}
+                      className="border-slate-300 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-500/20 bg-white/80 dark:bg-slate-700/80"
+                    />
                   </div>
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button 
+                    type="submit" 
+                    disabled={loading}
+                    className="flex-1 bg-gradient-to-r from-slate-700 via-blue-600 to-indigo-700 hover:from-slate-800 hover:via-blue-700 hover:to-indigo-800 text-white font-medium py-2.5 shadow-lg hover:shadow-xl transition-all duration-300 border-0"
+                  >
+                    {loading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        <span className="hidden sm:inline">Menganalisis...</span>
+                        <span className="sm:hidden">Analisis...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <span>🔍</span>
+                        <span className="hidden sm:inline">Jalankan Analisis SEO Lengkap</span>
+                        <span className="sm:hidden">Analisis SEO</span>
+                      </div>
+                    )}
+                  </Button>
+                  <Button 
+                    type="button" 
+                    onClick={handlePreview}
+                    disabled={loading}
+                    variant="outline"
+                    className="sm:px-6 border-slate-400 dark:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-300 text-slate-700 dark:text-slate-300"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>✨</span>
+                      Preview
+                    </div>
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Preview Notice */}
         {showPreview && (
-          <Card className="mb-4 animate-fade-in shadow-lg border-amber-200 dark:border-amber-800 bg-amber-50/80 dark:bg-amber-900/20 backdrop-blur-sm">
-            <CardContent className="pt-4">
-              <div className="flex items-start gap-2 text-amber-800 dark:text-amber-200">
-                <span className="mt-0.5">💡</span>
-                <span className="text-sm font-medium">
-                  Ini adalah data preview untuk demonstrasi. Masukkan URL asli untuk analisis yang akurat.
-                </span>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="relative mb-4 animate-fade-in group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl blur opacity-20 animate-pulse"></div>
+            <Card className="relative shadow-lg border-0 bg-amber-50/90 dark:bg-amber-900/20 backdrop-blur-sm">
+              <CardContent className="pt-4">
+                <div className="flex items-start gap-2 text-amber-800 dark:text-amber-200">
+                  <span className="mt-0.5">💡</span>
+                  <span className="text-sm font-medium">
+                    Ini adalah data preview untuk demonstrasi. Masukkan URL asli untuk analisis yang akurat.
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         )}
 
         {/* SEO Score Card */}
         {seoScore && (
-          <Card className="mb-6 md:mb-8 animate-fade-in shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-lg md:text-xl text-slate-700 dark:text-slate-200 flex items-center gap-2">
-                <span>📊</span>
-                Skor SEO Overall
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  {seoScore.percentage}%
+          <div className="relative mb-6 md:mb-8 animate-fade-in group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-400 via-blue-500 to-indigo-600 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000 animate-pulse"></div>
+            <Card className="relative shadow-2xl border-0 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg md:text-xl text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                  <span>📊</span>
+                  Skor SEO Overall
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+                  <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-slate-700 via-blue-600 to-indigo-700 dark:from-slate-200 dark:via-blue-300 dark:to-indigo-200 bg-clip-text text-transparent">
+                    {seoScore.percentage}%
+                  </div>
+                  <div className="flex-1 w-full sm:w-auto">
+                    <Progress value={seoScore.percentage} className="h-3 bg-slate-200 dark:bg-slate-700" />
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                      {seoScore.score} dari {seoScore.total} kriteria terpenuhi
+                    </p>
+                  </div>
+                  <Badge 
+                    variant={seoScore.percentage >= 80 ? "default" : seoScore.percentage >= 60 ? "secondary" : "destructive"}
+                    className={`text-sm px-3 py-1 ${
+                      seoScore.percentage >= 80 
+                        ? "bg-gradient-to-r from-emerald-500 to-green-600 text-white border-0" 
+                        : seoScore.percentage >= 60 
+                        ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0" 
+                        : "bg-gradient-to-r from-red-500 to-rose-600 text-white border-0"
+                    }`}
+                  >
+                    {seoScore.percentage >= 80 ? "Excellent" : seoScore.percentage >= 60 ? "Good" : "Needs Work"}
+                  </Badge>
                 </div>
-                <div className="flex-1 w-full sm:w-auto">
-                  <Progress value={seoScore.percentage} className="h-3" />
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    {seoScore.score} dari {seoScore.total} kriteria terpenuhi
-                  </p>
-                </div>
-                <Badge 
-                  variant={seoScore.percentage >= 80 ? "default" : seoScore.percentage >= 60 ? "secondary" : "destructive"}
-                  className="text-sm px-3 py-1"
-                >
-                  {seoScore.percentage >= 80 ? "Excellent" : seoScore.percentage >= 60 ? "Good" : "Needs Work"}
-                </Badge>
-              </div>
-              {loadTime && (
-                <div className="text-sm text-slate-600 dark:text-slate-400">
-                  ⚡ Load Time: {loadTime}ms
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                {loadTime && (
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                    ⚡ Load Time: {loadTime}ms
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         )}
 
         {/* Results Section - Grouped by Category */}
         {groupedResults && (
           <div className="space-y-4 md:space-y-6 animate-fade-in">
             {Object.entries(groupedResults).map(([category, categoryResults]) => (
-              <Card key={category} className="shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-base md:text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
-                    <span>
-                      {category === "Basic" && "🔒"}
-                      {category === "Performance" && "⚡"}
-                      {category === "Meta Tags" && "🏷️"}
-                      {category === "Content" && "📝"}
-                      {category === "Images" && "🖼️"}
-                      {category === "Social" && "📱"}
-                      {category === "Technical" && "⚙️"}
-                      {category === "Links" && "🔗"}
-                    </span>
-                    {category === "Basic" && "Basic SEO"}
-                    {category === "Performance" && "Performance"}
-                    {category === "Meta Tags" && "Meta Tags"}
-                    {category === "Content" && "Content Structure"}
-                    {category === "Images" && "Images"}
-                    {category === "Social" && "Social Media"}
-                    {category === "Technical" && "Technical SEO"}
-                    {category === "Links" && "Links"}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-600">
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600">
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[120px]">Check</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[150px]">Result</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[100px]">Status</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {categoryResults.map((row, index) => (
-                          <TableRow 
-                            key={row.label} 
-                            className={`${
-                              row.ok 
-                                ? "bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-l-4 border-l-emerald-500" 
-                                : "bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-l-4 border-l-red-500"
-                            } hover:opacity-80 transition-opacity`}
-                          >
-                            <TableCell className="font-medium text-slate-700 dark:text-slate-200 text-sm md:text-base p-3 md:p-4">{row.label}</TableCell>
-                            <TableCell className="text-slate-600 dark:text-slate-300 text-sm md:text-base p-3 md:p-4 break-words">{row.value}</TableCell>
-                            <TableCell className="p-3 md:p-4">
-                              <span className={`inline-flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-semibold ${
-                                row.ok 
-                                  ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200" 
-                                  : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200"
-                              }`}>
-                                {row.ok ? (
-                                  <>
-                                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
-                                    <span className="hidden sm:inline">Pass</span>
-                                    <span className="sm:hidden">✓</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <AlertTriangle className="w-3 h-3 md:w-4 md:h-4" />
-                                    <span className="hidden sm:inline">Warn</span>
-                                    <span className="sm:hidden">!</span>
-                                  </>
-                                )}
-                              </span>
-                            </TableCell>
+              <div key={category} className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-300 via-blue-400 to-indigo-500 rounded-xl blur opacity-15 group-hover:opacity-25 transition duration-1000"></div>
+                <Card className="relative shadow-xl border-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-base md:text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                      <span>
+                        {category === "Basic" && "🔒"}
+                        {category === "Performance" && "⚡"}
+                        {category === "Meta Tags" && "🏷️"}
+                        {category === "Content" && "📝"}
+                        {category === "Images" && "🖼️"}
+                        {category === "Social" && "📱"}
+                        {category === "Technical" && "⚙️"}
+                        {category === "Links" && "🔗"}
+                      </span>
+                      {category === "Basic" && "Basic SEO"}
+                      {category === "Performance" && "Performance"}
+                      {category === "Meta Tags" && "Meta Tags"}
+                      {category === "Content" && "Content Structure"}
+                      {category === "Images" && "Images"}
+                      {category === "Social" && "Social Media"}
+                      {category === "Technical" && "Technical SEO"}
+                      {category === "Links" && "Links"}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto rounded-lg border border-slate-300/50 dark:border-slate-600/50">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-gradient-to-r from-slate-100/80 to-blue-50/80 dark:from-slate-700/80 dark:to-slate-600/80 border-b border-slate-300/50 dark:border-slate-600/50">
+                            <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[120px]">Check</TableHead>
+                            <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[150px]">Result</TableHead>
+                            <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[100px]">Status</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </CardContent>
-              </Card>
+                        </TableHeader>
+                        <TableBody>
+                          {categoryResults.map((row, index) => (
+                            <TableRow 
+                              key={row.label} 
+                              className={`${
+                                row.ok 
+                                  ? "bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/10 dark:to-green-900/10 border-l-2 border-l-emerald-500/60" 
+                                  : "bg-gradient-to-r from-red-50/50 to-rose-50/50 dark:from-red-900/10 dark:to-rose-900/10 border-l-2 border-l-red-500/60"
+                              } hover:bg-opacity-80 transition-all duration-200 border-b border-slate-200/30 dark:border-slate-700/30`}
+                            >
+                              <TableCell className="font-medium text-slate-700 dark:text-slate-200 text-sm md:text-base p-3 md:p-4">{row.label}</TableCell>
+                              <TableCell className="text-slate-600 dark:text-slate-300 text-sm md:text-base p-3 md:p-4 break-words">{row.value}</TableCell>
+                              <TableCell className="p-3 md:p-4">
+                                <span className={`inline-flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-semibold border ${
+                                  row.ok 
+                                    ? "bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-800 border-emerald-200 dark:from-emerald-900/30 dark:to-green-900/30 dark:text-emerald-200 dark:border-emerald-700" 
+                                    : "bg-gradient-to-r from-red-100 to-rose-100 text-red-800 border-red-200 dark:from-red-900/30 dark:to-rose-900/30 dark:text-red-200 dark:border-red-700"
+                                }`}>
+                                  {row.ok ? (
+                                    <>
+                                      <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
+                                      <span className="hidden sm:inline">Pass</span>
+                                      <span className="sm:hidden">✓</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <AlertTriangle className="w-3 h-3 md:w-4 md:h-4" />
+                                      <span className="hidden sm:inline">Warn</span>
+                                      <span className="sm:hidden">!</span>
+                                    </>
+                                  )}
+                                </span>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
 
             {/* Detail Results */}
             {detailResults && detailResults.length > 0 && (
-              <Card className="shadow-xl border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-base md:text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
-                    <span>📋</span>
-                    Content Details
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-600">
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600">
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[120px]">Element</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[200px]">Content</TableHead>
-                          <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[100px]">Status</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {detailResults.map((row, index) => (
-                          <TableRow 
-                            key={row.label} 
-                            className={`${
-                              row.ok 
-                                ? "bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-l-4 border-l-emerald-500" 
-                                : "bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-l-4 border-l-red-500"
-                            } hover:opacity-80 transition-opacity`}
-                          >
-                            <TableCell className="font-medium text-slate-700 dark:text-slate-200 text-sm md:text-base p-3 md:p-4">{row.label}</TableCell>
-                            <TableCell className="text-slate-600 dark:text-slate-300 text-sm md:text-base p-3 md:p-4 max-w-xs md:max-w-md break-words">{row.value}</TableCell>
-                            <TableCell className="p-3 md:p-4">
-                              <span className={`inline-flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-semibold ${
-                                row.ok 
-                                  ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200" 
-                                  : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200"
-                              }`}>
-                                {row.ok ? (
-                                  <>
-                                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
-                                    <span className="hidden sm:inline">Pass</span>
-                                    <span className="sm:hidden">✓</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <AlertTriangle className="w-3 h-3 md:w-4 md:h-4" />
-                                    <span className="hidden sm:inline">Warn</span>
-                                    <span className="sm:hidden">!</span>
-                                  </>
-                                )}
-                              </span>
-                            </TableCell>
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-300 via-blue-400 to-indigo-500 rounded-xl blur opacity-15 group-hover:opacity-25 transition duration-1000"></div>
+                <Card className="relative shadow-xl border-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-base md:text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                      <span>📋</span>
+                      Content Details
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto rounded-lg border border-slate-300/50 dark:border-slate-600/50">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-gradient-to-r from-slate-100/80 to-blue-50/80 dark:from-slate-700/80 dark:to-slate-600/80 border-b border-slate-300/50 dark:border-slate-600/50">
+                            <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[120px]">Element</TableHead>
+                            <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[200px]">Content</TableHead>
+                            <TableHead className="font-semibold text-slate-700 dark:text-slate-200 text-sm md:text-base min-w-[100px]">Status</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </CardContent>
-              </Card>
+                        </TableHeader>
+                        <TableBody>
+                          {detailResults.map((row, index) => (
+                            <TableRow 
+                              key={row.label} 
+                              className={`${
+                                row.ok 
+                                  ? "bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-900/10 dark:to-green-900/10 border-l-2 border-l-emerald-500/60" 
+                                  : "bg-gradient-to-r from-red-50/50 to-rose-50/50 dark:from-red-900/10 dark:to-rose-900/10 border-l-2 border-l-red-500/60"
+                              } hover:bg-opacity-80 transition-all duration-200 border-b border-slate-200/30 dark:border-slate-700/30`}
+                            >
+                              <TableCell className="font-medium text-slate-700 dark:text-slate-200 text-sm md:text-base p-3 md:p-4">{row.label}</TableCell>
+                              <TableCell className="text-slate-600 dark:text-slate-300 text-sm md:text-base p-3 md:p-4 max-w-xs md:max-w-md break-words">{row.value}</TableCell>
+                              <TableCell className="p-3 md:p-4">
+                                <span className={`inline-flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-semibold border ${
+                                  row.ok 
+                                    ? "bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-800 border-emerald-200 dark:from-emerald-900/30 dark:to-green-900/30 dark:text-emerald-200 dark:border-emerald-700" 
+                                    : "bg-gradient-to-r from-red-100 to-rose-100 text-red-800 border-red-200 dark:from-red-900/30 dark:to-rose-900/30 dark:text-red-200 dark:border-red-700"
+                                }`}>
+                                  {row.ok ? (
+                                    <>
+                                      <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
+                                      <span className="hidden sm:inline">Pass</span>
+                                      <span className="sm:hidden">✓</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <AlertTriangle className="w-3 h-3 md:w-4 md:h-4" />
+                                      <span className="hidden sm:inline">Warn</span>
+                                      <span className="sm:hidden">!</span>
+                                    </>
+                                  )}
+                                </span>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             )}
 
-            <div className="mt-6 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg">
-              <p className="text-sm text-slate-600 dark:text-slate-400 flex items-center gap-1 mb-2">
+            <div className="mt-6 p-4 bg-gradient-to-r from-slate-100/80 to-blue-50/80 dark:from-slate-700/80 dark:to-slate-600/80 rounded-lg border border-slate-300/30 dark:border-slate-600/30 backdrop-blur-sm">
+              <p className="text-sm text-slate-700 dark:text-slate-300 flex items-center gap-1 mb-2">
                 <span>💡</span>
                 <strong>Tips untuk meningkatkan SEO:</strong>
               </p>

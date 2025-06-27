@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -99,5 +100,57 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Fade In Animation */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animated Gradient Border */
+  .animate-gradient-border {
+    position: relative;
+    background: linear-gradient(45deg, #e2e8f0, #cbd5e1, #94a3b8);
+    background-size: 300% 300%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Pulse Glow Effect */
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulseGlow {
+    from {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+    }
+    to {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
   }
 }
